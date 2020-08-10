@@ -1,0 +1,7 @@
+\begin{figure*}[hbt]
+\ifnextchar[{\eatarg}{}
+
+\centering
+\includegraphics{figures/unnamed-chunk-5-1.pdf}
+\caption{\label{fig:unnamed-chunk-5}Regressing higher order need strenght on general self efficacy.}
+\end{figure*}

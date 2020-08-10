@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Methods With Others in Mind .hl[Cooperative Tools and Workflow]</title>
+    <meta charset="utf-8">
+    <meta name="author" content="Christopher R. Dishop www.christopherdishop.com" />
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/metropolis.css" rel="stylesheet" />
+    <link href="libs/remark-css/metropolis-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="gentle-ggplot2.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Methods With Others in Mind<br>.hl[<code>Cooperative Tools and Workflow</code>]
+### Christopher R. Dishop<br>www.christopherdishop.com
+### Slides and code: <strong>github.com/Cdishop/methods_with_others</strong><br>Template: Garrick Aden-Buie ‘Gentle-GGplot2’
+
+---
+
+
+class: inverse, center, middle
+
+# What I Study
+
+
+
+---
+layout: false
+# What I Study
+
+
+.left-column[
+### .hl[Performance]
+
+]
+
+--
+
+.right-column[
+&lt;img src="images/performance.jpg" width="80%" height="80%" /&gt;
+]
+
+---
+
+layout: false
+# What I Study
+
+.left-column[
+### .hl[Performance]
+### .hl[Cooperation]
+
+]
+.right-column[
+&lt;img src="images/climbing.jpg" width="100%" /&gt;
+]
+
+
+
+---
+
+layout: false
+
+# What I Study
+
+.left-column[
+### .hl[Performance]
+### .hl[Cooperation]
+
+]
+
+
+&lt;img src="images/science.jpg" width="75%" /&gt;
+
+---
+
+# Today
+
+---
+
+# Today
+
+&lt;img src="images/rubrics.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Today
+
+.left-column[
+### Data Management
+
+### .font200.center[+] 
+
+### General Programming
+
+### .font200.center[=] 
+
+- Productive
+- Effective
+- Helpful
+]
+--
+
+.right-column[
+
+- # Your collaborators]
+--
+
+.right-column[
+
+- # Your future self]
+--
+
+.right-column[
+
+# .hlb[Methods With Others in Mind]]
+
+---
+class: inverse, center, middle
+
+# Your Future Self
+
+---
+layout: false
+# Your Future Self - Understand
+
+--
+
+
+
+
+## Your Understanding
+
+&lt;img src="index_files/figure-html/gplot-ex-1.png" width="50%" height="35%" style="display: block; margin: auto;" /&gt;
+
+
+---
+# Your Future Self - Understand
+
+
+
+## Your Understanding
+
+&lt;img src="index_files/figure-html/gplot2-ex-1.png" width="50%" height="35%" style="display: block; margin: auto;" /&gt;
+
+
+---
+# Your Future Self - Understand
+
+---
+# Your Future Self - Understand
+
+.left-code[
+
+
+```r
+Performance
+```
+
+]
+---
+# Your Future Self - Understand
+
+.left-code[
+
+```r
+Performance &lt;-  
+  simulate_random_walk()
+```
+]
+
+---
+# Your Future Self - Understand
+
+.left-code[
+
+```r
+Performance &lt;- 
+  simulate_random_walk(
+    time_steps = 55
+  )
+```
+
+]
+
+---
+
+# Your Future Self - Understand
+
+.left-code[
+
+```r
+Performance &lt;- 
+  simulate_random_walk(
+    time_steps = 55
+  )
+```
+
+]
+
+.right-plot[
+&lt;img src="index_files/figure-html/aplotg-1.png" width="100%" /&gt;
+
+]
+
+---
+# Your Future Self - Understand
+---
+
+# Your Future Self - Understand
+
+
+```r
+Performance[t] &lt;- Performance[t-1]
+```
+
+---
+# Your Future Self - Understand
+
+```r
+Performance[t] &lt;- Performance[t-1] + noise[t]
+```
+
+---
+# Your Future Self - Understand
+
+
+```r
+Performance[t] &lt;- Performance[t-1] + rnorm(1, 0, 1)
+```
+
+---
+# Your Future Self - Understand
+
+.font200.center[Compare] 
+
+
+```r
+simulate_process()
+```
+
+.font200.center[to]
+
+
+```r
+variable[t] &lt;- "specify process"
+```
+
+---
+# Your Future Self - Understand
+
+## .font200.center[.hlb["But I Don't Have Any Data"]]
+
+---
+# Your Future Self - Speed
+---
+# Your Future Self - Speed
+
+![](images/dirty_df.gif)
+
+---
+# Your Future Self - Speed
+
+![](images/nice_data.png)
+
+---
+# Your Future Self - Speed
+---
+# Your Future Self - Speed
+
+![](images/gross_data.png)
+
+---
+# Your Future Self - Speed
+
+---
+
+# Your Future Self - Speed
+
+.right-code[
+
+## cleaning_script.R
+
+```r
+read_data("ugly_qualtrics_df.csv")
+
+select_columns()
+
+filter_rows()
+
+change_names()
+```
+
+]
+
+--
+.left-code[
+
+```r
+execute(
+    "cleaning_script.R"
+        )
+```
+
+]
+
+---
+# Your Future Self - Speed
+
+&lt;img src="images/clean_script.gif" width="70%" height="70%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Your Future Self - Clarity
+---
+# Your Future Self - Clarity
+
+### .font200.center[College Student Career Interests Project]
+
+&lt;img src="images/folder_icon.jpg" width="60%" height="60%" style="display: block; margin: auto;" /&gt;
+
+---
+# Your Future Self - Clarity
+
+### .font200.center[College Student Career Interests Project]
+
+&lt;img src="images/project_ugly.png" width="70%" height="70%" style="display: block; margin: auto;" /&gt;
+
+
+---
+# Your Future Self - Clarity
+
+### .font200.center[College Student Career Interests Project]
+
+&lt;img src="images/project_clean.png" width="60%" height="60%" style="display: block; margin: auto;" /&gt;
+
+---
+# Your Future Self - Clarity
+
+
+&lt;img src="images/gandrud.png" width="30%" height="30%" style="display: block; margin: auto;" /&gt;
+
+.footnote[Christopher Gandrud, 2013. &lt;https://www.amazon.com/Reproducible-Research-Studio-Chapman-Hall/dp/1466572841&gt;]
+
+---
+layout: false
+# Methods With Others In Mind - Your Future Self
+
+--
+
+.font200.center[**Understand**]
+
+--
+.font200.center[**Speed**]
+
+--
+.font200.center[**Clarity**]
+
+---
+class: inverse, center, middle
+
+# Your Collaborators
+
+---
+
+
+&lt;img src="images/network.gif" width="70%" height="70%" style="display: block; margin: auto;" /&gt;
+
+---
+# Your Collaborators - Execute
+---
+# Your Collaborators - Execute
+
+
+&lt;img src="images/usd.jpg" width="33%" /&gt;&lt;img src="images/depaul.jpeg" width="33%" /&gt;&lt;img src="images/australia.jpg" width="33%" /&gt;
+
+--
+
+&lt;br&gt;
+&lt;br&gt;
+.font200.center[Data]
+
+.font200.center[Code]
+
+---
+# Your Collaborators - Execute
+
+--
+
+.font200.center[.hlb[analysis.dat]]
+
+--
+
+&lt;br&gt;
+
+&lt;br&gt;
+
+&lt;br&gt;
+
+&lt;br&gt;
+
+&lt;br&gt;
+
+
+
+```r
+read_data("/Users/christopherdishop/Desktop/project/mplus_data.csv")
+
+# rest of the code...
+```
+
+---
+# Your Collaborators - Execute
+
+&lt;img src="images/employees.png" width="60%" height="60%" style="display: block; margin: auto;" /&gt;
+
+
+&lt;br&gt;
+
+
+```r
+read_data("/Users/christopherdishop/Desktop/project/mplus_data.csv")
+
+# rest of the code...
+```
+
+---
+# Your Collaborators - Execute
+
+&lt;img src="images/employees_bad.png" width="60%" height="60%" style="display: block; margin: auto;" /&gt;
+
+
+&lt;br&gt;
+
+
+```r
+read_data("/Users/christopherdishop/Desktop/project/mplus_data.csv")
+
+# rest of the code...
+```
+
+
+---
+# Your Collaborators - Execute
+
+.font200.center[.hlb[analysis.dat]]
+
+
+&lt;br&gt;
+
+.font200.center[Not with others in mind...]
+
+
+```r
+read_data("/Users/christopherdishop/Desktop/project/mplus_data.csv")
+```
+
+--
+
+.font200.center[With others in mind...]
+
+
+```r
+read_data("../data/mplus_data.csv")
+
+# rest of the code...
+```
+
+---
+# Your Collaborators - Execute
+
+&lt;img src="images/employees_good.png" width="60%" height="60%" style="display: block; margin: auto;" /&gt;
+
+&lt;br&gt;
+
+
+```r
+read_data("../data/mplus_data.csv")
+
+# rest of the code...
+```
+
+---
+# Your Collaborators - Learn
+
+--
+
+.left-column[
+![](images/word.png)
+![](images/excel.png)
+![](images/powerpoint.png)
+]
+
+.img-right[![](images/spss.png)]
+
+![](images/onenote.png)
+
+---
+# Your Collaborators - Learn
+
+.font200.center[.hlb[Markdown!]]
+
+--
+&lt;img src="images/markdown.gif" width="70%" height="70%" style="display: block; margin: auto;" /&gt;
+
+---
+class: inverse, center, middle
+
+# Methods With Others in Mind
+
+---
+
+# Methods With Others in Mind
+
+## Data management and programming to cooperate with .hl[others]...
+
+--
+
+.font200.center[.hlb[Your future self]]
+
+--
+&lt;br&gt;
+
+&lt;br&gt;
+
+&lt;br&gt;
+
+.font200.center[.hlb[Your collaborators]]
+
+---
+
+# Methods With Others in Mind
+
+## Data management and programming to cooperate with .hl[others]...
+
+
+.font200.center[.hlb[Your future self]]
+
+.font120.center[Understand]
+.font120.center[Speed]
+.font120.center[Clarity]
+
+.font200.center[.hlb[Your collaborators]]
+
+.font120.center[Execute]
+.font120.center[Learn]
+
+---
+
+# Methods With Others in Mind
+&lt;img src="images/spec_small.png" width="30%" height="30%" style="display: block; margin: auto;" /&gt;
+
+---
+# Methods With Others in Mind
+&lt;img src="images/universe.png" width="100%" height="100%" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+class: inverse, center, middle
+
+# Thanks!
+&lt;br&gt;
+# Questions?
+    </textarea>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "foundation",
+"highlightLines": true,
+"countIncrementalSlides": true,
+"slideNumberFormat": "%current%"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function() {
+  var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})();</script>
+
+<script>
+(function() {
+  var i, text, code, codes = document.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+})();
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

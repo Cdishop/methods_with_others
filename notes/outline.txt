@@ -1,0 +1,127 @@
+nMethods with Others in Mind: Cooperative Programming and Workflow
+
+
+
+
+## opening
+
+I study performance and cooperation
+- how employees get stuff done. how do you be effective? how do you be productive? 
+- typically i study those questions in the context of a collective. Not only your own performance that matters but there are people around you that could be helpful or harmful to you. They could cooperate or act selfishly. 
+- in our literature cooperation is more like assisting one another and the extent to which your goals are aligned with those of your colleageues. Are you on the same page, do you both have a shared understanding of the task that needs to be accomplished?
+
+So you can see how that naturally ties into my interest in the productivity of researchers, in our effectiveness as researchers to do good science.
+- i like methods not only because i think you ought to care about methods if you identify as a scientist but because i care about the tools and processes that allow us to be productive. 
+- How are we going about doing our science and teaching our science in ways that may or may not be effective. 
+
+Basically I'm going to argue that
+
+It's worth your time to think about data management. It's worth your time to think about programming in general. 
+[image of program requirements throughout grad programs. stats courses, methods courses]
+- in methods courses the emphasis is: 
+++ use your data to say something about a content area
++++ I think it's worth your time to think about how your data should be structured
+++ use this stats application to run a statistic
++++ I think it's worth your time to learn programming in general
+
+Doing these things will make you more productive and effective and they will more helpful to...
+
+ yourself in the future (bold)
+your collaborators (bold) 
+
+=> that's what I mean by methods with others in mind. 
+- being effective with your tools to not only cooperate with other people but also yourself in the future. You don't want to waste your own time. 
+
+
+Today
+- lots of examples
+- what you get by learning data management and programming, and keeping others in mind
+- first set has to do with cooperating with yourself in the future
+- second set has to do with cooperating with collaborators
+
+
+
+
+topics
+examples
+- things you can do with programming when you have others in mind
+
+(a) yourself in the future
+
+
+true understanding of process and statistic
+- full script vs simulate()
+- random walk sim with step number vs
+[code]
+[output image]
+- cohesion identical to its prior value plus noise, adn that noise has properties. constant variance and mean, but each draw is independent. Think back to when you had to memorize the assumptions of regression (obviously those are different assumptions), but you memorized a list that was hard to think about. this isn't hard to think about. you must understand the process to generate it this way. 
+[cohesion code]
+
+
+
+
+
+data cleaning redo
+- new data, no problem
+- this nastiness from excel
+- clean the columns, do it manually in excel
+- 1 summer later you get more data
+- how did you clean it?
+- even if you remember, you have to run through all of the steps again
+- if I did it in code, then I just execute() my script again. 
+
+[excel file with ulgy columns, show participant number]
+[excel file with clean columns, show participant number]
+[qualtrics, more participants, show participant number]
+[what do I do? even if I remmeber...ugh]
+[r.script with cleaning commands]
+[execute(r.script)]
+[new excel file]
+[same thing with images in word files. I know all of you have created a word document, gone back to excel to change the image, and then 
+when you put it back in word you have to adjust all of the text]
+
+
+
+
+
+Along those lines...
+linking documents
+what is the stuff in all of this folder? how is it all connected?
+- image of dirty folder. 
+- where do I start?
+- what was this project about?
+- how are these files linked together?
+- what are the 
+[reproductive research christopher image]
+[linked documents. if anything changes, the other documents know]
+[the point is: did you ever see this image in your first 2 years of grad school? why not?; this image is way more important than any theory you are going to read during your first year of grad school]
+
+
+
+
+
+
+(b) others
+
+
+
+absolute vs relative path
+- often when i work with other people i send them scripts, code
+- often that code doesn't work
+- most frequent; it's a path issue
+- if you learn how to program, this is always the first chapter
+- this will be on your mind. with stats programs, it typically isn't
+
+
+
+
+teaching
+- pdf
+- powerpoint
+- onenote or word
+- mplus script
+- data 
+- graphing excel
+++ hard to learn from all of this material. hard to study it. 
+- vs...all within a markdown document
+

@@ -1,0 +1,5 @@
+ TITLE:	regressing higher order need strength on general self efficacy
+  DATA:	FILE IS data.csv;
+  VARIABLE:	NAMES ARE completed_survey computer_id session_id participant_id gse ho_need_strength;
+  MODEL:	ho_need_strength ON gse;
+

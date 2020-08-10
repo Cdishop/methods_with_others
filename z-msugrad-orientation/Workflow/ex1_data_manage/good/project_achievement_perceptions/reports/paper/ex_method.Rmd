@@ -1,0 +1,13 @@
+---
+output: pdf_document
+---
+
+# Method
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ornare iaculis erat eget auctor. Integer cursus orci ut quam volutpat varius. Suspendisse et nibh quis turpis lacinia tristique. In at magna eleifend, finibus dolor at, pretium ante. Integer ac elit et eros dictum condimentum. Aliquam tempus suscipit arcu, in dapibus dolor tincidunt eu. Etiam elementum vulputate odio, id posuere felis consequat a.
+
+Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Integer efficitur est in faucibus malesuada. Morbi maximus sagittis libero, vel molestie metus. Sed a lacus volutpat, laoreet nunc in, lacinia mauris. Vestibulum ante enim, suscipit nec lorem id, volutpat feugiat ante. Quisque porta volutpat nulla, euismod dictum elit posuere eget. Nunc sit amet feugiat sapien, sed fringilla mauris. Phasellus semper ex mi, eget laoreet nunc pharetra sit amet. Sed vehicula congue leo sit amet consectetur. Morbi urna mi, dignissim et lectus quis, tempus vulputate nibh. Sed vel lectus non justo dignissim luctus. In elementum auctor odio, ac ultrices ante suscipit in. Ut finibus et diam in cursus. Sed mattis eros ut turpis sagittis, non efficitur sem porttitor.
+
+Suspendisse potenti. Suspendisse fringilla, urna et viverra elementum, erat tortor hendrerit ipsum, nec porta dui orci vel velit. Sed lacinia finibus diam, ac finibus diam. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper a justo sit amet pharetra. Curabitur gravida dictum arcu vel suscipit. Nulla pellentesque ultrices eros vel cursus. Sed ultricies orci quis purus consectetur, interdum venenatis purus lacinia. In euismod eros in facilisis luctus. Nunc gravida at purus et viverra.
+
+Sed consequat nisi ut augue rhoncus, et mattis enim ultricies. Nullam quis eros finibus, consequat nisl non, semper nisl. Pellentesque non orci eu velit congue interdum eu et est. Suspendisse potenti. Interdum et malesuada fames ac ante ipsum primis in faucibus. Maecenas feugiat, erat in luctus dignissim, risus sem iaculis purus, et pulvinar eros felis ut arcu. Nunc bibendum mattis orci, et iaculis lorem scelerisque placerat. Donec varius tristique varius. Aenean sollicitudin lacus a semper auctor. Phasellus a tincidunt sem. Ut sed aliquet mauris. Suspendisse finibus scelerisque magna, tempus placerat ante sodales eu. Nulla hendrerit placerat mauris ac ultricies. Nunc id porta eros. Pellentesque fringilla accumsan nisi, quis lobortis sapien luctus at. Curabitur eu augue eu nunc blandit placerat.

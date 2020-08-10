@@ -1,0 +1,13 @@
+---
+output: pdf_document
+---
+
+# Discussion
+
+Maecenas blandit volutpat lacinia. Maecenas at dictum tellus. Fusce nisl dolor, congue ac consequat quis, iaculis ut lorem. Morbi quis eros a ipsum tincidunt faucibus. Integer ultricies urna ac lorem consequat imperdiet. Suspendisse non risus sapien. Vivamus in magna et velit rutrum tincidunt non eu arcu. Quisque nec nibh rhoncus, finibus libero in, imperdiet nibh. Mauris sodales, arcu in porttitor fermentum, ex mauris maximus nisl, at dapibus nulla ex quis sapien. Aliquam mollis molestie sagittis.
+
+Ut vulputate mauris non dignissim tempor. Sed nec libero leo. Suspendisse potenti. Quisque pellentesque non tellus ac aliquam. Nunc fringilla non purus et ornare. Vivamus vulputate tincidunt felis, a faucibus justo ornare a. Suspendisse potenti.
+
+Etiam suscipit eget nibh sed egestas. Pellentesque accumsan at dui in viverra. Morbi eu eros purus. Nam auctor vitae erat at ultrices. Sed sagittis consequat ante quis aliquet. Curabitur rutrum nisl risus, eu porta ex auctor vel. Duis et odio et eros dictum pellentesque. Morbi rutrum fermentum odio at congue. Quisque sit amet ex mattis, maximus massa eget, posuere sem. Fusce vel dui lobortis, facilisis est sed, varius mauris. Aliquam sollicitudin sollicitudin egestas. Maecenas ut erat feugiat, congue eros non, rutrum ex. Aenean in cursus elit. Sed nec lorem metus. Pellentesque fermentum, nulla in posuere eleifend, sem leo hendrerit sapien, sed faucibus libero enim non tellus. Curabitur finibus rhoncus finibus.
+
+Mauris tempus ex ac ex ullamcorper varius. In diam est, cursus id arcu sit amet, consectetur sodales elit. Duis quis fringilla nibh. Cras vitae sapien nec ante rhoncus aliquet. Integer augue risus, varius et laoreet elementum, consectetur sed dolor. Vivamus finibus libero ante, vitae mollis lorem fringilla sit amet. Maecenas euismod dui vel elit venenatis hendrerit. Ut dictum nibh egestas enim mollis suscipit. Fusce condimentum, neque a vulputate pellentesque, elit nisi fermentum est, ut interdum lorem nunc nec diam. Donec tincidunt rhoncus pretium. Quisque bibendum volutpat dolor a commodo.

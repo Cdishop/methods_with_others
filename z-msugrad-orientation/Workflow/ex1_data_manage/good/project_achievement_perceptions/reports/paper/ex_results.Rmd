@@ -1,0 +1,52 @@
+---
+output: pdf_document
+---
+
+# Results
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam augue orci, sodales in ultricies sed, finibus eget libero. Donec dapibus ex ac justo pharetra bibendum. Maecenas congue felis quis nisl condimentum semper. Maecenas vitae pulvinar justo. Integer hendrerit maximus tristique. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nunc laoreet mollis ligula nec ullamcorper. Fusce quam enim, venenatis eget convallis ut, laoreet ac nisi. Sed dignissim massa sit amet metus porta hendrerit. Morbi et dapibus libero, vitae tristique nunc. Aenean sagittis felis ante, elementum mattis erat facilisis a. Donec ornare pretium mattis. Donec at posuere nulla. Ut id augue eu augue accumsan dapibus.
+
+Pellentesque aliquet venenatis egestas. Ut dapibus id nisl id maximus. Pellentesque lorem nisi, porta non sem bibendum, laoreet tempor felis. In hendrerit libero id tellus mollis, et sollicitudin nulla convallis. Sed in tellus purus. Praesent vitae ante in lectus eleifend porttitor. Maecenas accumsan suscipit volutpat. Fusce pharetra vulputate justo eget sagittis. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Ut pretium aliquet tincidunt. Mauris pretium enim non lobortis lacinia. Proin luctus, tellus quis dignissim dignissim, turpis augue porttitor justo, id vulputate nisi purus id justo. Morbi in mattis orci, at rutrum orci.
+
+Cras congue ut turpis eget tempus. Proin sed ligula bibendum, varius diam eget, sagittis arcu. Aliquam odio magna, porta et leo nec, finibus tincidunt magna. Cras luctus tincidunt felis, eget semper ex gravida in. Ut feugiat nibh in fermentum mattis. Fusce congue rhoncus sapien, ut laoreet turpis vestibulum vitae. Sed tempus dignissim lorem, a sagittis felis consequat quis. Integer gravida, dui sit amet tempor tempus, ex augue pellentesque metus, ac pellentesque elit enim quis arcu. Donec ullamcorper blandit fringilla. Suspendisse commodo lorem libero, a ullamcorper magna suscipit nec. Nullam sed nulla eu elit volutpat eleifend. Nullam sit amet purus condimentum, laoreet justo a, malesuada odio. Vivamus mollis mollis tortor. Vivamus nibh lacus, venenatis sed semper et, mattis vitae dui.
+
+Nullam est nisl, malesuada quis dictum quis, posuere sit amet dui. Praesent dui lectus, fringilla id massa nec, mollis accumsan ipsum. Donec accumsan volutpat leo, sit amet ornare ex. Pellentesque ac ultrices massa. Morbi ut dignissim arcu. Maecenas iaculis in mi non maximus. Curabitur blandit libero sed pellentesque feugiat. Phasellus a porttitor libero. Vestibulum congue augue ut purus facilisis, ac porta ligula varius. Morbi eu auctor ligula. Duis tristique enim a dignissim viverra. Maecenas non tellus id ante viverra placerat. Nunc ipsum ex, pharetra et efficitur vitae, dignissim vel urna. Curabitur ultricies non ligula ac fringilla.
+
+In vel consectetur eros, vitae vulputate elit. In et purus in urna facilisis pulvinar. Aliquam erat volutpat. Quisque non posuere tortor. Sed vel elit sit amet magna lacinia volutpat. Donec scelerisque arcu et rhoncus mollis. Donec et diam non sem scelerisque sagittis ut lobortis dolor.
+
+Etiam consectetur odio vitae velit porta, sit amet tristique tortor suscipit. Integer ultrices consequat nulla. Ut ut dui non ipsum rutrum ultricies. Vestibulum malesuada lacus faucibus, mattis quam aliquam, molestie justo. Aliquam varius libero ante, id pellentesque lorem rhoncus quis. Sed malesuada mauris magna, vitae ultrices velit viverra vel. Pellentesque pellentesque est augue, sed lobortis leo auctor vitae. Praesent a nunc eu dui porta dictum in ut odio. Donec pharetra in nisl nec ullamcorper. Duis nibh dui, fermentum sit amet facilisis quis, sagittis non velit. Duis purus justo, dictum vel faucibus vel, rhoncus et urna.
+
+
+
+```{r, results = 'asis', fig.cap = "Regressing higher order need strenght on general self efficacy."}
+
+library(tidyverse)
+library(ggplot2)
+
+df <- read.csv('../../data/cleaned_data.csv')
+
+plot1 <- ggplot(df, aes(x = gse, y = ho_need_strength)) + 
+  geom_point() + 
+  geom_smooth(method = 'lm', se = F, color = 'black') + 
+  theme_classic() + 
+  xlab('General Self Efficacy') + 
+  ylab('Higher Order Need Strength')
+
+plot1
+
+```
+
+
+
+```{r, results = 'asis', fig.cap = 'Unstandardized coefficient relating higher order need strength to general self efficacy.'}
+
+lm_result <- lm(formula = ho_need_strength ~ gse, data = df)
+apa_lm <- apa_print(lm_result)
+
+apa_table(apa_lm$table,
+          caption = 'Unstandardized coefficient relating higher order need strength to general self efficacy.')
+
+
+
+```
+

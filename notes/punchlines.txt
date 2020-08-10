@@ -1,0 +1,49 @@
+﻿# what I study
+
+I study performance and cooperation
+- how employees get stuff done. how do you be effective? how do you be productive? 
+- typically i study those questions in the context of a collective. Not only your own performance that matters but there are people around you that could be helpful or harmful to you. They could cooperate or act selfishly. 
+- cooperation: how do you get stuff done when their are mutual interests? how can you sequence work activities to ensure people are coordinating their efforts?
+
+# today
+
+The punchline today is that I think there are two tools, to components to being a good researcher that graduate students don’t often pick up. 
+
+# after curriculum
+Data management & General programming.
+Often in these courses, the emphasis is usually on the analysis, the equations underlying an analysis, and what you can say about your content area based on what the analysis spits back.
+I think there is a lot for a student to gain if he or she also learns a lot about data management.
+- literally, how should files in your folders be structured
+- which sounds elementary, but i  know all of you have worked with someone who isn't good at it, and you probably found it incredibly disatisfying
+
+Often in these courses, if you use a program, you do so simply to run a statistic
++++ I think it's worth your time to learn programming in general
+
+When you do those things
+you pick up general programming and data management as tools
+i think it makes you a substantially better scientist
+it also makes you more helpful. 
+who do you become more helpful to?
+well certainly your collaborators
+but also your future self
+
+repetition talk
+
+and that's waht i mean by methods with others in mind
+
+i think if you aren't good at data management, and you aren't good at general programming
+then you are what i call a selfish methodologist
+when you pick these things up i think you become a cooperative methodologist
+
+that's the punchline
+today's talk is: what do you get by learning these tools?
+both with respect to yourself...how do you improve if you pick up these tools?
+and also your collaborations...how does your team improve if you pick up these tools?
+
+
+# your understanding
+I think that we all want to understand whatever it is we are studying to the greatest degree possible. I think that’s a goal that we can all agree with.
+I think that if you get good at general programming, it will allow you to understand your content area better.
+
+
+

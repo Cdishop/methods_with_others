@@ -1,0 +1,51 @@
+# title slide
+- shout ben
+
+# What I Study
+- performance and cooperation
+
+=> scientist image; what tools are we using?
+=> teaching image; how are we passing on our methods to the next generation of scientists
+
+# Today
+
+"in a broader way than you are typically exposed to in a methods course"
+
+[program requirements image]
+"in a methods course"
+- Stats heavy
+- Easy data
+
+"you use data to answer your content questions and the data is clean"
+"you learn a program to run a statistic"
+
+- Worth your time to learn
+++ data management
+++ general programming
+
+# Why?
+
+- Productive
+- Effective
+
+- Helpful to...
+
+++ yourself in the future
+++ your collaborators
+
+=> circle: methods with others in mind
+
+# Agenda
+
+- Programming and data management examples
+++ yourself in the future
+++ your collaborators
+
+
+# Yourself in the future - Understand
+
+# Yourself in the future - Clean
+
+# Yourself in the future - Link
+
+

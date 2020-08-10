@@ -1,0 +1,79 @@
+---
+
+# https://crsh.github.io/papaja_man/index.html
+
+title             : "Relationship Between General Self Efficacy and Higher Order Need Strength"
+shorttitle        : "ACHIEVEMENT PERCEPTIONS"
+
+author: 
+  - name          : "Christopher R. Dishop"
+    affiliation   : "1"
+    corresponding : yes    # Define only one corresponding author
+    address       : "316 Physics Road, Psychology Building, Room 348, East Lansing, MI, 48823"
+    email         : "dishopch@msu.edu"
+    
+affiliation:
+  - id            : "1"
+    institution   : "Michigan State University"
+
+
+
+author_note: |
+  ....
+
+abstract: |
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis mattis id erat quis finibus. Duis porttitor egestas nunc, a vehicula purus commodo nec. Aenean vel egestas lorem, ullamcorper tincidunt dolor. Sed lobortis ligula vitae libero faucibus, vitae blandit nisi dapibus. Ut rutrum ac magna in feugiat. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Proin metus libero, malesuada ac vulputate ut, gravida sed lorem. Aliquam quis est quis metus egestas viverra. Aenean semper massa id urna tincidunt, quis interdum dolor dictum. Mauris odio lectus, maximus sed placerat vitae, posuere ut lacus. Nunc a dignissim augue. 
+  
+keywords          : "Dynamic, dynamics, dynamical, time, change, growth"
+bibliography      : ["references.bib"]
+
+figsintext        : no
+figurelist        : no
+tablelist         : no
+footnotelist      : no
+lineno            : yes
+
+lang              : "english"
+class             : "man"
+output            : papaja::apa6_pdf
+---
+
+```{r load_packages, include = FALSE}
+library("papaja")
+```
+
+```{r analysis_preferences}
+# Seed for random number generation
+set.seed(42)
+```
+
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(fig.path = 'figures/', echo = F, warning = FALSE, message = FALSE)
+```
+
+
+```{r child = 'ex_intro.Rmd'}
+```
+
+
+```{r child = 'ex_method.Rmd'}
+```
+
+
+```{r child = 'ex_results.Rmd'}
+```
+
+
+```{r child = 'ex_discussion.Rmd'}
+```
+
+
+\newpage
+
+# References
+```{r create_references, echo = F}
+r_refs(file = "references.bib")
+```
+
+\setlength{\parindent}{-0.5in}
+\setlength{\leftskip}{0.5in}

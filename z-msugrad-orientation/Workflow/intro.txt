@@ -1,0 +1,3 @@
+Brent and Emily asked me to come in today and talk about tools, specifically Rmarkdown and Zotero. I thought it would be a good opportunity to speak broadly about managing your projects and expose you to some ideas that you may not have thought about before. 
+
+You are about to pick up a lot of projects, it would be worth your time to consider how you might best use some tools available to you to make your life more efficient and less stressful. With that in mind, I've got some tools on the screen...

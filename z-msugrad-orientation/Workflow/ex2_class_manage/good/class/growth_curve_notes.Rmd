@@ -1,0 +1,118 @@
+---
+title: "Growth Modeling Notes"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = F, warning = F)
+library(tidyverse)
+df <- read.csv('data.csv')
+```
+
+## Data Prelims For Growth Modeling Using SEM
+
+* Requires wide rather than long data
+
+* More notes about that here...
+
+* Change `df` to wide using the "reshape" package.
+
+```{r}
+library(reshape2)
+df_wide <- reshape(df, idvar = 'id', timevar = 'time', direction = 'wide')
+
+```
+
+## The Basic Growth Model
+
+Some notes on this section.
+
+* Point one
+* Another point
+* Another important note
+
+An equation or two...
+
+\begin{equation}
+y_{it} = b_0 + b_1 t + e_t
+\end{equation}
+
+### Growth Model Syntax Notes
+
+Latent intercept term
+* constrain each factor loading to one
+
+```{r, eval = F}
+latent_int =~ 1*happy.1 + 1*happy.2 + 1*happy.3 + 1*happy.4 + 1*happy.5 + 1*happy.6
+```
+
+Latent slope term
+* start from zero and increase each basis coefficient by one
+
+```{r, eval = F}
+latent_slope =~ 0*happy.1 + 1*happy.2 + 2*happy.3 + 3*happy.4 + 4*happy.5 + 5*happy.6
+```
+
+Estimate the mean and variance of both latent terms
+
+```{r, eval = F}
+latent_int ~~ latent_int
+latent_slope ~~ latent_slope
+```
+
+
+...continue with notes
+
+Here is the full model:
+
+```{r}
+library(lavaan)
+
+linear_change_string <- '
+
+# Latent intercept and slope factors
+
+intercept_happy =~ 1*happy.1 + 1*happy.2 + 1*happy.3 + 1*happy.4 + 1*happy.5 + 1*happy.6
+slope_happy =~ 0*happy.1 + 1*happy.2 + 2*happy.3 + 3*happy.4 + 4*happy.5 + 5*happy.6
+
+# Mean and variance of latent factors
+
+intercept_happy ~~ intercept_happy
+slope_happy ~~ slope_happy
+
+# Covariance between latent factors
+
+intercept_happy ~~ slope_happy
+
+# Fix observed variable means to 0
+
+happy.1 ~ 0
+happy.2 ~ 0
+happy.3 ~ 0
+happy.4 ~ 0
+happy.5 ~ 0
+happy.6 ~ 0
+
+# Constrain residual (error) variance of observed variables to equality across time
+
+happy.1 ~~ res_var*happy.1
+happy.2 ~~ res_var*happy.2
+happy.3 ~~ res_var*happy.3
+happy.4 ~~ res_var*happy.4
+happy.5 ~~ res_var*happy.5
+happy.6 ~~ res_var*happy.6
+
+
+'
+
+```
+
+Print the results
+
+```{r}
+model1 <- sem(linear_change_string, data = df_wide)
+summary(model1)
+```
+

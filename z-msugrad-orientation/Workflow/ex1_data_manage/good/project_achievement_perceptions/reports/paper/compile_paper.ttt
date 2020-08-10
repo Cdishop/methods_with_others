@@ -1,0 +1,17 @@
+\begin{table*}[hbt]
+\ifnextchar[{\eatarg}{}
+[tbp]
+\begin{center}
+\begin{threeparttable}
+\caption{\label{tab:unnamed-chunk-6}Unstandardized coefficient relating higher order need strength to general self efficacy.}
+\begin{tabular}{lllll}
+\toprule
+Predictor & \multicolumn{1}{c}{$b$} & \multicolumn{1}{c}{95\% CI} & \multicolumn{1}{c}{$t(62)$} & \multicolumn{1}{c}{$p$}\\
+\midrule
+Intercept & 19.35 & $[13.86$, $24.84]$ & 7.05 & < .001\\
+Gse & 0.22 & $[0.06$, $0.38]$ & 2.75 & .008\\
+\bottomrule
+\end{tabular}
+\end{threeparttable}
+\end{center}
+\end{table*}

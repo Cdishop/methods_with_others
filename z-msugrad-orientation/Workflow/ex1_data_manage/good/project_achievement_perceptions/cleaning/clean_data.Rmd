@@ -1,0 +1,92 @@
+---
+title: "cleaning"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+Last Updated:
+- Aug 20th, 2019 by Christopher
+
+# Document Summary
+
+1) Read in data
+2) Select columns
+3) Rename columns
+4) Change to numeric
+5) Select completed participants
+6) Save data
+
+## 1 Read in data
+
+Use relative path
+
+```{r}
+df <- read.csv('../data/working_data.csv')
+```
+
+
+## 2 Select Columns
+
+Select columns that I am interested in, which include Finished (Finished), computer id (Q157), session id (Q204), participant id (Q205), general self efficacy (SC0), and higher order need strength (SC1)
+
+```{r}
+df <- df %>%
+  select(Finished,
+         Q157,
+         Q204,
+         Q205,
+         SC0,
+         SC1)
+
+
+```
+
+
+## 3 Rename Columns
+
+Change the column names so that they are easier to understand and use in scripts
+
+```{r}
+names(df) <- c('completed_survey',
+               'computer_id',
+               'session_id',
+               'participant_id',
+               'gse',
+               'ho_need_strength')
+```
+
+
+## 4 Change to numeric
+
+Most of the variables read in as factors or characters. I need to make them numeric in order to compute summary statistics and generate models.
+
+```{r}
+
+df[,] <- as.numeric(as.character(unlist(df[,])))
+
+```
+
+
+## 5 Select completed participants
+
+Select participants who completed the entire study. Also remove practice survey attempts that I completed prior to the study (coded as participant id == 9999).
+
+```{r}
+df <- df %>%
+  filter(completed_survey == 1) %>%
+  filter(session_id != 'NA') %>%
+  filter(participant_id < 999)
+
+```
+
+
+## 6 Save it
+
+```{r}
+write.csv(df, file = '../data/cleaned_data.csv', row.names = F)
+```
+

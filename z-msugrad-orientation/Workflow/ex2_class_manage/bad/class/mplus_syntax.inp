@@ -1,0 +1,28 @@
+TITLE:    Example Path Analysis Syntax
+DATA:     FILE IS 'C:\Chris\Raw_Data.dat';
+          FORMAT is 5F8.3; 
+
+VARIABLE: NAMES ARE 
+Variable1
+Variable2
+Variable3
+Variable4
+Variable5;
+
+USEVARIABLES are 
+Variable1
+Variable2
+Variable3;
+          
+          
+MISSING = BLANK;
+
+
+ANALYSIS:   ITERATIONS=10000;
+
+MODEL:      Variable2 ON Variable1; 
+            Variable3 ON Varible2; 
+
+OUTPUT:  STAND;
+         MODINDICES;
+         RES;
