@@ -1,5 +1,5 @@
 Project folder for Christopher data management example.
-- Last adjusted August 20th, 2019
+- Last adjusted August 10th, 2020
 
 # Project Purpose
 

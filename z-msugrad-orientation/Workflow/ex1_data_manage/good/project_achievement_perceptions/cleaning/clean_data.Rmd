@@ -9,7 +9,7 @@ library(tidyverse)
 ```
 
 Last Updated:
-- Aug 20th, 2019 by Christopher
+- Aug 10th, 2020 by Christopher
 
 # Document Summary
 
