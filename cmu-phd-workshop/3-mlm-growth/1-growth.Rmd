@@ -1,0 +1,285 @@
+---
+title: "Practice"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, message = F, warning = F}
+library(tidyverse)
+library(kableExtra)
+library(nlme)
+df <- read.csv("data/growth.csv")
+```
+
+## Growth Model Example 1
+
+Growth modeling on individuals with repeated measures (and one stable covariate). Performance was repeatedly measured on 300 employees.
+
+Research Questions:
+
+* Are there between unit differences in performance intercepts?
+  + Do employees differ from one another in their performance intercepts?
+  
+
+* Is there a trend in performance?
+  + Across employees, does performance increase or decrease over time?
+  
+
+* Are there between unit differences in performance growth?
+  + Do employees exhibit different performance trends?
+  
+
+* Is there a between unit relationship between cognitive ability and performance intercepts?
++ Do employees that differ in cognitive ability also differ in their performance intercepts?
+  
+
+* Is there a between unit relationship between cognitive ability and performance slopes?
+  + Do employees that differ in cognitive ability also differ in their performance trends?
+  
+
+Data Structure:
+
+* 300 employees
+
+* 10 time points
+
+* performance measured with a single item at each time point
+
+* cognitive ability measured once and assumed to be stable
+
+A snippet of the data:
+
+```{r}
+df %>% head() %>% kable()
+
+```
+
+MLM Structure:
+
+* level-one is time
+
+* level-two is person
+
+
+Modeling Steps:
+
+1. Estimate ICC using a null model
+
+2. Estimate level-one effects (time in this example)
+
+3. Examine variability 
+
+4. Examine error structure
+
+5. Estimate level-two effects (cognitive ability in this example)
+
+
+#### Estimate ICC using a null model
+
+The model below estimates a mean and accounts for "group structuring." In this case, "group structuring" means time within persons. 
+
+```{r}
+
+            # estimate the intercept
+            # which means the over-time-averaged performance
+nullm = lme(performance ~ 1, 
+            # and allow that intercept estimate to vary
+            # across employees (ids)
+            random = ~ 1 | id,
+            data = df)
+
+# if you ever have convergence issues with lme, use
+# control=list(opt = "optim")
+# after your data command
+# e.g., data = df, control = list(opt = "optim)
+
+
+```
+
+
+Determine ICC1 values from the null model. Formula:
+
+\being{equation}
+ICC1 = \textrm{Variance of Intercept /} \textrm{(Variance of Intercept + Variance of Residual)}
+\end{equation}
+
+```{r}
+VarCorr(nullm)
+```
+
+```{r}
+40.80241 / (40.80241 + 14.81769)
+```
+
+ICC1 is roughly 0.73, which means that 73% of the variance in performance can be "explained" by the between-person variance. Take that phrasing lightly. It also means that there is 27% of variance that we can try to pick apart using within-variance stuff.
+
+Our null model is a "model-based" approach to estimating an overall mean. 
+
+```{r}
+summary(nullm)$coefficient["fixed"]
+```
+```{r}
+df %>% 
+  group_by() %>% 
+  summarize(
+    mean_perf = mean(performance)
+  )
+```
+
+The model also allows each person to have a different performance intercept.
+
+```{r}
+summary(nullm)$coefficient["random"]
+```
+
+This ICC stuff basically "gives us permission to move forward" with growth modeling. We also have evidence of RQ1: the high ICC tells us that employees differ in intercept performance.
+
+#### Estimate level-one effects (time in this example)
+
+Regress performance on time. Doing so will address RQ2 (is there a trend in performance?).
+
+```{r}
+growthmod <- lme(performance ~ time,
+                 random = ~ 1 | id,
+                 data = df)
+
+summary(growthmod)$tTable
+```
+
+The estimate of time (-0.04) is negative and significant. This value represents the estimate of the population trend. Across people, the "average" performance trend is -0.04. The intercept estimate is 9.95, which represents the average level of performance at time 0. 
+
+Now allow the trend to vary across individuals. Doing so will address RQ3 (is there variability in the performance trend?).
+
+```{r}
+growthmod_vary <- lme(performance ~ time,
+                      # allow intercepts and slopes to differ across people
+                      random = ~ time | id,
+                      data = df)
+```
+
+Does this second model fit better?
+
+```{r}
+anova(growthmod, growthmod_vary)
+```
+
+
+According to the chi-square difference test, it does (p < 0.05). So, I have permission to move forward with the second model. I allowed slopes to vary across individuals, and I improved model fit.
+
+Let's look at the estimates.
+
+```{r}
+summary(growthmod_vary)$tTable
+```
+
+Notice that the estimate of time is the same, but it is no longer significant. On average across persons, there is no trend. But there are differences across people in there trend. Some have a positive trend, some have a negative trend, some have 0 trend.
+
+
+#### Examine error structure
+
+Not needed, but Bliese and reviewers might tell you that you have to. So here is some code to include autoregression and heteroscedasticity.
+
+```{r}
+
+ac_mod <- update(growthmod_vary,
+                 correlation = corAR1(form = ~ 1 | id))
+anova(growthmod_vary, ac_mod)
+
+h_mod <- update(growthmod_vary,
+                weights = varExp(form = ~ time))
+anova(growthmod_vary, h_mod)
+
+```
+
+#### Estimate level-two effects (cognitive ability in this example)
+
+Determine if cognitive ability (between-person differences) correlates with intercept and slope performance. Bliese and reviewers will say that you are explaining why mean performance differs and why growth patterns differ. This is wrong. These are descriptive models. 
+
+First, cognitive ability predicts the intercept.
+
+```{r}
+          # same growth model as before but with an added predictor
+ca_mod <- lme(performance ~ time + cog,
+              random = ~ time | id,
+              data = df)
+
+summary(ca_mod)$tTable
+```
+
+
+When I run this model, the intercept is no longer "average performance at time 0" (or the first data collection period). This model is partitioning variance in different ways. When my only predictor is time, then the intercept is average (across person) performance at time 0. When I add this level 2 predictor, the intercept becomes a "level 2 mean of performance." Is cognitive ability related to this "level 2 mean of performance"? The estimate is small (0.0066) and not significant. 
+
+Now, cognitive ability predicts the slope (trend). Doing so creates a cross-level interaction.
+
+```{r}
+ca_mod2 <- lme(performance ~ time*cog,
+               random = ~ time | id,
+               data = df)
+
+
+# synonymous with
+# lme(performance ~ time + cog + time:cog)
+
+summary(ca_mod2)$tTable
+```
+
+The value is negative (-0.003) and not significant. So, differences in cognitive ability are not associated with differences in performance trends.
+
+If the effect was real, we would interpret as follows. People who are low on cognitive ability have positively trending performance, whereas people with high cognitive ability have negatively trending performance.
+
+#### Creating a cross-level interaction plot
+
+We didn't find a cross-level interaction, but here is a way to plot one if you do.
+
+Make a data frame with the extremes of time and the extremes of the level 2 predictor.
+
+```{r}
+cog_ability <- df %>% 
+  group_by() %>% 
+  summarize(
+    mean_ca = mean(cog),
+    sd_ca = sd(cog)
+    
+  )
+
+cog_ability_low <- cog_ability$mean_ca + cog_ability$sd_ca
+cog_ability_high <- cog_ability$mean_ca - cog_ability$sd_ca
+
+intdf <- data.frame(
+  "time" = c(1, 1, 10, 10),
+  "cog" = c(cog_ability_low,
+            cog_ability_high,
+            cog_ability_low,
+            cog_ability_high)
+)
+
+predict(ca_mod2, intdf, level = 0)
+
+```
+
+
+```{r}
+intdf <- intdf %>% 
+  mutate(pp = predict(ca_mod2, intdf, level = 0))
+
+library(ggplot2)
+ggplot(intdf, aes(x = time, y = pp, color = factor(cog))) + 
+  geom_line()
+
+```
+
+
+```{r}
+intdf <- intdf %>% 
+  mutate(cognitive_ability = ifelse(cog < 90, "Low", "High"))
+
+ggplot(intdf, aes(x = time, y = pp, color = cognitive_ability)) + 
+  geom_line()
+
+
+```
+
+

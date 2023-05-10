@@ -1,0 +1,57 @@
+---
+title: "analysis"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+Last Updated
+- August 20th, 2019 by Christopher
+
+# Document Summary
+
+1) load data
+2) check outliers
+3) compute summary statistics
+4) run regression
+
+Relevant Variables:
+
+* General self efficacy (gse)
+* Higher order need strength (ho_need_strength)
+
+## 1 Load data
+
+```{r}
+df <- read.csv('../data/cleaned_data.csv')
+```
+
+## 2 Check Outliers
+
+The greatest score for general self efficacay is `r max(df$gse)`, and the greatest score for higher order need strength is `r max(df$ho_need_strength)`
+
+## 3 Compute Summary Statistics
+
+```{r}
+
+summary(df[, c('gse', 'ho_need_strength')])
+
+```
+
+## 4 Run Regression
+
+Regress higher order need strength on general self efficacy
+
+```{r}
+reg_model <- lm(ho_need_strength ~ gse,
+                data = df)
+
+summary(reg_model)
+
+```
+

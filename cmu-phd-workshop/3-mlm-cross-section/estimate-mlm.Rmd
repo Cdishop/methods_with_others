@@ -1,0 +1,204 @@
+---
+title: "mlm"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Observed performance across 40 teams, each with 8 people. I assessed individual performance, individual workload, and team efficacy (which I'm calling collective efficacy). 
+
+Research Questions
+
+* What is the relationship between workload and performance?
+
+  + Relationship between level 1 iv and level 1 dv, but we'll need to account for nesting.
+  
+* What is the relationship between team/collective efficacy and team performance?
+
+  + Relationship between level 2 iv and level 2 dv.
+  
+* Is there a cross-level interaction? Does collective efficacy moderate the relationship between individual workload and individual performance? Do individuals who are nested within teams demonstrating high collective efficacy exhibit different relationships among workload and performance than employees who are nested within teams demonstrating low collective efficacy?
+
+
+Here are the data.
+
+```{r, message = F, warning = F}
+library(tidyverse)
+library(ggplot2)
+library(nlme)
+library(kableExtra)
+df <- read.csv("data/mlm.csv")
+
+df %>%  head() %>% kable()
+```
+
+Workload is an individual measure. Performance is an individual measure. Team collective efficacy is a team-level measure. 
+
+Modeling Steps:
+
+1. Examine ICCs
+
+2. Estimate level1 and level2 main effects
+
+3. Estimate cross-level interaction
+
+#### Examine ICCs
+
+Use a null model. The model below simply estimates a unique performance mean for every group. 
+
+```{r}
+null <- lme(performance ~ 1,
+            random = ~ 1 | team,
+            data = df)
+
+VarCorr(null)
+```
+
+ICC1:
+
+```{r}
+27.919365 / (27.919365 + 3.104512)
+```
+
+```{r}
+library(multilevel)
+icc <- aov(performance ~ as.factor(team),
+           data = df)
+ICC1(icc)
+```
+
+90% of the variance in performance can be "explained" by group membership. There is good reason to use a MLM here.
+
+The model we ran simply allows group means to differ. The best prediction we can make about an individual's performance (at the current stage in modeling) is by using his or her team's average performance.
+
+```{r}
+
+coef(null)
+```
+
+We can compare this model to a model that only estimates an overall mean: the average performance across all people within all teams.
+
+```{r}
+gls <- gls(performance ~ 1,
+           data = df)
+anova(gls, null)
+```
+
+The null model fits better. So again we have evidence that accounting for nesting is appropriate. 
+
+#### Estimate level1 and level2 main effects
+
+```{r}
+
+mod1 <- lme(performance ~ workload + team_ce,
+            random = ~ 1 | team,
+            data = df)
+
+round(summary(mod1)$tTable, dig = 3)
+
+```
+
+There is a negative relationship between workload and performance (RQ1). Employees with greater workload exhibit lower performance.
+
+There is a positive relationship between team collective efficacy and team performance (RQ2). Teams with greater collective efficacy exhibit greater performance. Notice that our "data set" DV (performance) is measured at the individual level. This effect, though, is interpreted at the team-level. Do not interpret this effect as "team collective efficacy relates to individual performance."
+
+We could also allow the slopes across groups to vary. 
+
+```{r}
+mod2 <- lme(performance ~ workload + team_ce,
+            random = ~ 1 + workload | team,
+            data = df)
+anova(mod1, mod2)
+```
+
+
+The model that allows the relationship between workload and performance to vary over teams fits better. Let's look at the coefficients.
+
+```{r}
+round(summary(mod2)$tTable, dig = 3)
+```
+
+Roughly the same. We didn't add or remove predictors, just allowed the relationship between wkl and performance to differ across teams. Having done so, we have permission to move forward with our cross-level interaction. There is variability among slopes to "explain."
+
+#### Estimate cross-level interaction
+
+```{r}
+mod3 <- lme(performance ~ workload*team_ce,
+            random = ~ workload | team,
+            control = list(opt = "optim"),
+            data = df)
+
+round(summary(mod3)$tTable, dig = 3)
+
+```
+
+Indeed, our cross-level interaction is significant. Tough to interpret, so let's plot it.
+
+Create extremes on our level 1 predictor (workload).
+
+```{r}
+
+wkl <- df %>% 
+  group_by() %>% 
+  summarize(
+    mu = mean(workload),
+    sdd = sd(workload)
+  )
+high_wkl <- wkl$mu + wkl$sdd
+low_wkl <- wkl$mu - wkl$sdd
+
+```
+
+Create extremes for our level 2 predictor (team CE)
+
+```{r}
+
+ce <- df %>% 
+  group_by() %>% 
+  summarize(
+    mu = mean(team_ce),
+    sdd = sd(team_ce)
+  )
+high_ce <- ce$mu + ce$sdd
+low_ce <- ce$mu - ce$sdd
+
+```
+
+Combine those into a data set:
+
+```{r}
+predict_df <- data.frame(
+  "workload" = c(high_wkl, low_wkl, high_wkl, low_wkl),
+  "team_ce" = c(high_ce, high_ce, low_ce, low_ce)
+)
+
+predict_df %>% kable()
+```
+
+Use our final model to create predicted values.
+
+```{r}
+predict_df <- predict_df %>% 
+  mutate(pp = predict(mod3, predict_df, level = 0))
+
+predict_df %>% kable()
+```
+
+Above is equivalent to writing out the regression equation from model 3 and using the estimates to generate predicted scores for performance (based on high and low combinations of workload and team ce). 
+
+
+Plot.
+
+```{r}
+predict_df <- predict_df %>% 
+  mutate(Team_CE = ifelse(team_ce < 11, "Low", "High"))
+
+ggplot(predict_df, aes(x = workload, y = pp, linetype = Team_CE)) + 
+  geom_line() + 
+  theme_classic() + 
+  theme(axis.text.y = element_blank(),
+        axis.ticks.y = element_blank())
+```
+

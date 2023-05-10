@@ -1,0 +1,178 @@
+---
+title: "Empirical Bayes As Predictors"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, message = F, warning = F}
+library(tidyverse)
+library(kableExtra)
+library(nlme)
+df <- read.csv("data/growth.csv")
+```
+
+## Growth Model Example 2
+
+Take individual differences in performance trends across times 1-9 and predict time 10 satisfaction. 
+
+Research Question:
+
+* Is there a between unit relationship between performance trend and satisfaction?
++ Do employees that differ in performance growth also differ in time 10 satisfaction?
+
+
+Data Structure:
+
+* 300 employees
+
+* 10 time points
+
+* performance measured with a single item at each time point
+
+* satisfaction measured with a single item at each time point (we'll only look at t = 10)
+
+A snippet of the data:
+
+```{r}
+df %>% head() %>% kable()
+
+```
+
+MLM Structure:
+
+* level-one is time
+
+* level-two is person
+
+
+Modeling Steps:
+
+1. Estimate ICC using a null model
+
+2. Estimate level-one effects (time in this example)
+
+3. Examine variability 
+
+4. Save empirical bayes estimates
+
+5. Relate the empirical bayes estimates to t 10 satisfaction
+
+
+#### Estimate ICC using a null model
+
+The model below estimates a mean and accounts for "group structuring." In this case, "group structuring" means time within persons. 
+
+```{r}
+
+nullm = lme(performance ~ 1, 
+            random = ~ 1 | id,
+            data = df)
+
+```
+
+
+Determine ICC1 values from the null model. Formula:
+
+\being{equation}
+ICC1 = \textrm{Variance of Intercept /} \textrm{(Variance of Intercept + Variance of Residual)}
+\end{equation}
+
+```{r}
+VarCorr(nullm)
+```
+
+```{r}
+40.80241 / (40.80241 + 14.81769)
+```
+
+ICC1 is roughly 0.73, which means that 73% of the variance in performance can be "explained" by the between-person variance. Take that phrasing lightly. It also means that there is 27% of variance that we can try to pick apart using within-variance stuff.
+
+#### Estimate level-one effects (time in this example)
+
+Regress performance on time. 
+
+```{r}
+growthmod <- lme(performance ~ time,
+                 random = ~ 1 | id,
+                 data = df)
+
+summary(growthmod)$tTable
+```
+
+The estimate of time (-0.04) is negative and significant. This value represents the estimate of the population trend. Across people, the "average" performance trend is -0.04. The intercept estimate is 9.95, which represents the average level of performance at time 0. 
+
+Now allow the trend to vary across individuals. 
+
+```{r}
+growthmod_vary <- lme(performance ~ time,
+                      random = ~ time | id,
+                      data = df)
+```
+
+Does this second model fit better?
+
+```{r}
+anova(growthmod, growthmod_vary)
+```
+
+
+According to the chi-square difference test, it does (p < 0.05). So, I have permission to move forward with the second model. I allowed slopes to vary across individuals, and I improved model fit.
+
+Let's look at the estimates.
+
+```{r}
+summary(growthmod_vary)$tTable
+```
+
+Notice that the estimate of time is the same, but it is no longer significant. On average across persons, there is no trend. But there are differences across people in there trend. Some have a positive trend, some have a negative trend, some have 0 trend.
+
+
+#### Save the empirical bayes estimates
+
+Here are the intercepts and slopes for each person.
+
+```{r}
+coef(growthmod_vary)
+
+```
+
+Save those into a data frame.
+
+```{r}
+bayes <- coef(growthmod_vary)
+names(bayes) <- c("eb_intercept", "eb_slope")
+bayes$id <- row.names(bayes)
+```
+
+Merge this new data frame with t10 satisfaction from our original df.
+
+```{r}
+
+t10sat <- df %>% 
+  filter(time == 10) %>% 
+  select(id, satisfaction) %>% 
+  mutate(id = as.character(id))
+
+bayes <- left_join(bayes, t10sat)
+```
+
+```{r}
+bayes %>% head() %>% kable()
+```
+
+Now I can regress t10 satisfaction on my intercepts and slopes. 
+
+#### Relate the empirical bayes estimates to t 10 satisfaction
+
+
+```{r}
+mod <- lm(satisfaction ~ eb_intercept + eb_slope,
+          data = bayes)
+
+summary(mod)
+```
+
+The slope estimate is positive (0.15) but not significant. If the effect was real, it would be interpreted as follows. People who had positive performance slopes had greater satisfaction at t10, whereas people with negative performance slopes had lower satisfaction at t10. 

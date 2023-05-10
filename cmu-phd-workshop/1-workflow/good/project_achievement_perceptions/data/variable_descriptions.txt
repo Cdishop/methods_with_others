@@ -1,0 +1,39 @@
+Variable descriptions for cleaned_data
+
+1) completed_survey
+
+Whether or not the participant answered all of the questions
+0 = No
+1 = Yes
+
+2) computer_id
+
+Which condition the participant was in
+1 = control 1 (no drug, no text)
+2 = no drug, blue text
+3 = no drug, red text
+4 = no drug, green text
+5 = drug, blue text
+6 = drug, red text
+7 = drug, green text
+8 = control 2 (drug, black text)
+
+3) session_id
+
+Unique identifier for each time new subjects participated. Roughly 3-6 participants per study.
+
+4) participant_id
+
+Unique identifier for each participant.
+
+5) gse
+
+General Self Efficacy
+
+See Chen, Gully, & Eden (2004) for the scale
+
+6) ho_need_strength
+
+Higher order need strength
+
+See Johnson & Grand (1978) for the scale
